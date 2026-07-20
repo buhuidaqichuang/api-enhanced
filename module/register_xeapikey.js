@@ -1,6 +1,7 @@
 const { default: axios } = require('axios')
 const encrypt = require('../util/crypto')
 const { APP_CONF } = require('../util/config.json')
+const { generateRandomChineseIP } = require('../util/index')
 
 const generateNonce = () => {
   let nonce = ''
@@ -37,6 +38,12 @@ module.exports = async (query, request) => {
       'User-Agent':
         'NeteaseMusic/9.1.65.240927161425(9001065);Dalvik/2.1.0 (Linux; U; Android 14; 23013RK75C Build/UKQ1.230804.001)',
       Cookie: deviceId ? `deviceId=${encodeURIComponent(deviceId)}` : '',
+      ...(process.env.ENABLE_RANDOM_CN_IP === 'true'
+        ? {
+            'X-Real-IP': global.cnIp || generateRandomChineseIP(),
+            'X-Forwarded-For': global.cnIp || generateRandomChineseIP(),
+          }
+        : {}),
     },
     data: new URLSearchParams(data).toString(),
     proxy: false,
