@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  ncm-api:
+    image: moefurina/ncm-api:latest
+    container_name: ncm-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # 全局解灰：VIP/灰色歌曲自动解锁（5人小圈子推荐开启）
+      ENABLE_GENERAL_UNBLOCK: "true"
+      # 允许无损音质
+      ENABLE_FLAC: "true"
+      # 跨域：原生App可设 *，Web类App建议填具体域名
+      CORS_ALLOW_ORIGIN: "*"
+      # 国内服务器本身在国内，无需随机IP
+      ENABLE_RANDOM_CN_IP: "false"
+      # 可选：登录态 cookie（仅听个人歌单/云盘时需要）
+      # NETEASE_COOKIE: "MUSIC_U=xxxxxxxx"
+    # 清理代理环境变量，避免容器内请求走不存在的代理而失败
+    env_file:
+      - .env.prod.example

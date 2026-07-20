@@ -1,0 +1,8 @@
+#!/bin/bash
+export PORT=9000
+# 国内 Serverless 免费部署：开启解灰与无损，无需随机IP
+export ENABLE_GENERAL_UNBLOCK=true
+export ENABLE_FLAC=true
+export CORS_ALLOW_ORIGIN='*'
+export ENABLE_RANDOM_CN_IP=false
+/var/lang/node18/bin/node app.js
