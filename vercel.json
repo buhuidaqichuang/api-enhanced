@@ -20,6 +20,7 @@
   "env": {
     "NODE_ENV": "production",
     "ENABLE_FLAC": "true",
-    "ENABLE_GENERAL_UNBLOCK": "true"
+    "ENABLE_GENERAL_UNBLOCK": "true",
+    "ENABLE_RANDOM_CN_IP": "true"
   }
 }
